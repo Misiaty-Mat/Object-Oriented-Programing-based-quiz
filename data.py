@@ -1,22 +1,23 @@
-question_data = [
-    {"question": "The programming language &quot;Python&quot; is based off a modified version of &quot;JavaScript&quot;.",
-        "correct_answer": "False"},
-    {"question": "The logo for Snapchat is a Bell.",
-        "correct_answer": "False"},
-    {"question": "Pointers were not used in the original C programming language; they were added later on in C++.",
-        "correct_answer": "False"},
-    {"question": "RAM stands for Random Access Memory.",
-        "correct_answer": "True"},
-    {"question": "Ada Lovelace is often considered the first computer programmer.",
-        "correct_answer": "True"},
-    {"question": "&quot;HTML&quot; stands for Hypertext Markup Language.",
-        "correct_answer": "True"},
-    {"question": "Time on Computers is measured via the EPOX System.",
-        "correct_answer": "False"},
-    {"question": "The Windows 7 operating system has six main editions.",
-        "correct_answer": "True"},
-    {"question": "The Windows ME operating system was released in the year 2000.",
-        "correct_answer": "True"},
-    {"question": "The NVidia GTX 1080 gets its name because it can only render at a 1920x1080 screen resolution.",
-        "correct_answer": "False"}
-]
+import requests
+
+
+# File created to get question from Application Programming Interface
+
+
+NUMBER_OF_QUESTIONS = 10
+DIFFICULTY = "easy"
+
+parameters = {
+    "amount": NUMBER_OF_QUESTIONS,
+    "difficulty": DIFFICULTY,
+    "type": "boolean",
+}
+
+questions_api_response = requests.get(
+    url="https://opentdb.com/api.php", params=parameters
+)
+questions_api_response.raise_for_status()
+
+questions_json = questions_api_response.json()
+
+questions_data = questions_json["results"]
